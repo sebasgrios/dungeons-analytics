@@ -1,0 +1,13 @@
+{
+  "allowed_paths": [
+    "scripts/package_diagnostic.py",
+    "tests/test_package_diagnostic.py",
+    ".github/workflows/package-diagnostic.yml",
+    "docs/DEVELOPMENT.md",
+    "docs/INSTALLATION.md",
+    "docs/RELEASES.md",
+    "docs/TESTING.md",
+    "docs/ROADMAP.md",
+    "CHANGELOG.md"
+  ]
+}
