@@ -1,6 +1,17 @@
 # Testing and evidence
 
-Report static source analysis, offline tests, GitHub check runs and Forever client execution independently. The installed executable identified build `1.60.1.70959` on 2026-11-20. All gameplay scenarios below are `NOT RUN`. Follow the approved diagnostic spec and implementation's commands when they become available.
+Report static source analysis, offline tests, GitHub check runs and Forever client execution independently. The installed executable identified build `1.60.1.70959` on 2026-11-20. The real-client scenarios below are `NOT RUN`.
+
+## Offline
+
+Run the isolated Lua 5.1 suites in `tests/test_*.lua` from the repository root. They exercise secret and restricted mock values, valid zero, restricted in-combat data, ambiguous healing targets, bounded retention, event ordering, cancellation after a reset, reload and TOC loading. The mocked native probe covers command wiring and missing templates. Client construction and rendering need the acceptance below.
+
+## In-game
+
+1. Install and enable the addon. Use `/da diag` for help and `/da diag start` before entering a dungeon.
+2. Use `/da diag ui` outside combat. Record the exact UI outcome and inspect at normal and compact scale. Use `/da diag snapshot` before and after the run when useful. Let the delayed samples run for at least three seconds after the final fight.
+3. To test persistence, leave capture active and use `/reload` outside combat. Check the `RELOAD` line and persisted counts in the export. A clean new login requires opting in again.
+4. Use `/da diag stop` and `/da diag export`. Save the diagnostic text locally and review it before sharing. After a clean client flush, the addon's account SavedVariables file is `DungeonsAnalyticsDiagnosticsDB.lua`.
 
 | Scenario | Procedure | Evidence |
 | --- | --- | --- |
