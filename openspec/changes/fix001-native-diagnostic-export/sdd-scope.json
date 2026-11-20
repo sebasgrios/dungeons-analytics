@@ -1,0 +1,12 @@
+{
+  "allowed_paths": [
+    "addon/DungeonsAnalytics/DungeonsAnalytics.toc",
+    "addon/DungeonsAnalytics/Features/Diagnostics/NativeProbe.lua",
+    "addon/DungeonsAnalytics/Features/Diagnostics/DiagnosticTemplates.xml",
+    "tests/test_toctest.lua",
+    "tests/fixtures/forever_diagnostics.lua",
+    "docs/NATIVE_UI.md",
+    "docs/TESTING.md",
+    "CHANGELOG.md"
+  ]
+}
