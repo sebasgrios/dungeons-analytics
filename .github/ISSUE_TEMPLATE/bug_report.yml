@@ -1,0 +1,19 @@
+name: Bug report
+description: Report a reproducible problem in WoW Forever or the project tooling
+title: "[Bug] "
+labels:
+  - bug
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Addon commit or version and Forever build
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps, actual result and expected result
+      description: Include a minimal sequence and redact player identifiers and private game files.
+    validations:
+      required: true

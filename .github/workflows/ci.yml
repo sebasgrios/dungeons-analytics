@@ -1,0 +1,72 @@
+name: CI
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, edited]
+permissions:
+  contents: read
+
+jobs:
+  repository-validation:
+    runs-on: ubuntu-24.04
+    outputs:
+      lua: ${{ steps.paths.outputs.lua }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+      - name: Classify runtime changes
+        id: paths
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          git diff --name-only "$BASE_SHA" HEAD > "$RUNNER_TEMP/pr-paths"
+          lua=false
+          if grep -Eq '^(addon/|tests/.*\.lua$|stylua\.toml$|\.luacheckrc$)' "$RUNNER_TEMP/pr-paths"; then
+            lua=true
+          fi
+          echo "lua=$lua" >> "$GITHUB_OUTPUT"
+      - run: git diff --check "$BASE_SHA" HEAD
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+      - run: node scripts/validate-repository.mjs
+      - run: node --test tests/*.test.mjs
+      - run: npx --yes @fission-ai/openspec@1.16.0 validate --all --strict --no-interactive
+
+  lua-compatibility:
+    needs: repository-validation
+    if: needs.repository-validation.outputs.lua == 'true'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+      - run: sudo apt-get update && sudo apt-get install -y lua5.1 lua-check
+      - name: Check Lua syntax and style
+        run: |
+          find addon tests -type f -name '*.lua' -print0 | xargs -0 -r -n1 luac5.1 -p
+          luacheck addon tests --include-files '**/*.lua'
+          npx --yes --package @johnnymorganz/stylua-bin@2.6.0 stylua --check addon tests
+
+  lua-regressions:
+    needs: repository-validation
+    if: needs.repository-validation.outputs.lua == 'true'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - run: sudo apt-get update && sudo apt-get install -y lua5.1
+      - name: Run isolated Lua tests
+        run: |
+          shopt -s nullglob
+          suites=(tests/test_*.lua)
+          (( ${#suites[@]} > 0 ))
+          for suite in "${suites[@]}"; do lua5.1 "$suite"; done

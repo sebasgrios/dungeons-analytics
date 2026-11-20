@@ -1,0 +1,15 @@
+schema: spec-driven
+context: |
+  Dungeons Analytics is an offline Lua addon project for World of Warcraft Forever.
+  Current behavior is recorded in README.md. Runtime evidence belongs in docs/TESTING.md.
+  Only readable, non-secret observations are eligible for analysis or persistence.
+  Addon-facing strings use enUS and esES. CI and client acceptance are separate.
+rules:
+  proposal:
+    - Identify scope, risks, build-specific evidence and rollback.
+  specs:
+    - Use SHALL requirements and observable WHEN and THEN scenarios.
+  design:
+    - State client and offline boundaries, data provenance and storage limits.
+  tasks:
+    - Record automated checks, real-client evidence and outstanding scenarios.
