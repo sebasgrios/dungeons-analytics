@@ -2,7 +2,19 @@
 
 Dungeons Analytics is a native Lua addon project for retrospective dungeon analysis in World of Warcraft: Forever. The planned report relates each party member's recorded performance to boss attempts, trash combat and downtime across a run. The first deliverable is an opt-in diagnostic for the Forever client.
 
-The repository currently contains development governance, source research and a client test plan. See [the roadmap](docs/ROADMAP.md) for the proposed changes and [the capability matrix](docs/WOW_FOREVER_API.md) for the evidence behind them.
+The development addon records a bounded, local diagnostic on WoW: Forever. Capture is opt-in and records the installed build, availability of meter fields, candidate session timing and dungeon events. It can probe generic native UI components and export its report without raw player names or GUIDs. Live dungeon, persistence and interface acceptance are tracked in [the test plan](docs/TESTING.md). See [the roadmap](docs/ROADMAP.md) for product milestones and [the capability matrix](docs/WOW_FOREVER_API.md) for source evidence.
+
+## Run the diagnostic
+
+[Install the development addon](docs/INSTALLATION.md), then run `/da diag` in chat for help.
+
+| Command | Action |
+| --- | --- |
+| `/da diag start` | Opt in and take a baseline. |
+| `/da diag snapshot` | Capture a bounded sample during an active diagnostic. |
+| `/da diag ui` | Open the native component probe outside combat. |
+| `/da diag stop` | End capture and keep the local observations. |
+| `/da diag export` | Open the selectable local report outside combat. |
 
 - [Installation and client test preparation](docs/INSTALLATION.md)
 - [Product scope and requirements](docs/PRODUCT.md)

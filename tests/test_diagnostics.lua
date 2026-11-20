@@ -1,0 +1,65 @@
+local fixture = dofile("tests/fixtures/forever_diagnostics.lua")
+local addon = fixture.Load()
+local api = fixture.API()
+local safe = addon.SafeValues.New(api)
+local context = addon.ClientContext.New(api, safe)
+local meter = addon.DamageMeter.New(api, safe)
+local store = addon.DiagnosticStore.Open()
+local recorder = addon.Recorder.New(api, safe, context, meter, store)
+
+recorder:OnEvent("PLAYER_LOGIN")
+recorder:OnEvent("ENCOUNTER_START", 7, "Sensitive Name", 1, 5)
+assert(store:Counts().events == 0)
+assert(recorder:Start() == "started" and recorder:Start() == "alreadyActive")
+assert(store.data.active and store:Counts().samples == 1)
+assert(store:Export():find("loginObserved=true", 1, true))
+
+api.combat = true
+recorder:OnEvent("PLAYER_REGEN_DISABLED")
+recorder:OnEvent("ENCOUNTER_START", 7, "Sensitive Name", 1, 5)
+recorder:OnEvent("DAMAGE_METER_CURRENT_SESSION_UPDATED")
+assert(store:Export():find('reason="combat-start"', 1, true))
+api.combat = false
+recorder:OnEvent("ENCOUNTER_END", 7, "Sensitive Name", 1, 5, 0)
+recorder:OnEvent("PLAYER_REGEN_ENABLED")
+recorder:OnEvent("DAMAGE_METER_COMBAT_SESSION_UPDATED", 0, 18)
+recorder:OnEvent("LFG_COMPLETION_REWARD")
+api.Advance(0.2)
+assert(store:Export():find('reason="combat-end-1"', 1, true))
+assert(store:Export():find("outcome=0", 1, true))
+assert(store:Export():find("LFG_COMPLETION_REWARD", 1, true))
+assert(store:Export():find("byID={id=18", 1, true))
+
+api.sessions = {}
+recorder:OnEvent("DAMAGE_METER_RESET")
+api.Advance(5)
+assert(store:Export():find('reason="meter-reset"', 1, true))
+assert(not store:Export():find('reason="combat-end-4"', 1, true))
+assert(store.data.epoch == 2)
+
+local persisted = addon.DiagnosticStore.Open(store.data)
+local reloaded = addon.Recorder.New(api, safe, context, meter, persisted)
+reloaded:OnEvent("PLAYER_LOGIN")
+reloaded:OnEvent("PLAYER_ENTERING_WORLD", false, true)
+assert(reloaded.active and persisted.data.epoch == 3)
+assert(persisted:Export():find("RELOAD epoch=3", 1, true))
+assert(persisted:Export():find("persisted={events=", 1, true))
+local report = persisted:Export()
+assert(not report:find("Sensitive", 1, true))
+assert(not report:find("Player-secret", 1, true))
+
+reloaded:OnEvent("DAMAGE_METER_COMBAT_SESSION_UPDATED", 0, 23)
+assert(reloaded:Stop() == "stopped")
+local count = persisted:Counts().samples
+api.Advance(10)
+assert(persisted:Counts().samples == count)
+assert(addon.DiagnosticStore.Open({ version = 999 }) == nil)
+
+for index = 1, 250 do
+    persisted:Record("events", "BOUNDED", 3, index, 0, {})
+    persisted:Record("samples", "BOUNDED", 3, index, 0, {})
+end
+assert(persisted:Counts().events == 200 and persisted:Counts().samples == 24)
+assert(persisted.data.events[1]:find("seq=51", 1, true))
+assert(persisted.data.samples[1]:find("seq=227", 1, true))
+print("Recorder and SavedVariables tests passed")

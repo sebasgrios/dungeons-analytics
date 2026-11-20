@@ -1,0 +1,18 @@
+## Interface: 16001
+## Title: Dungeons Analytics
+## Notes: Opt-in dungeon analytics diagnostics for WoW Forever
+## Notes-esES: Diagnóstico opcional de mazmorras para WoW Forever
+## Author: sebasgrios
+## Version: 0.1.0-dev
+## SavedVariables: DungeonsAnalyticsDiagnosticsDB
+
+Localization/Locales.lua
+Infrastructure/SafeValues.lua
+Infrastructure/ClientContext.lua
+Infrastructure/DamageMeter.lua
+Infrastructure/DiagnosticStore.lua
+Features/Diagnostics/NativeProbe.lua
+Features/Diagnostics/Recorder.lua
+Features/Diagnostics/Commands.lua
+Core/Events.lua
+Core/Bootstrap.lua
