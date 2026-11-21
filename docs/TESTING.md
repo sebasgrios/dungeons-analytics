@@ -1,6 +1,6 @@
 # Testing and evidence
 
-Report static source analysis, offline tests, GitHub check runs and Forever client execution independently. The installed executable identified build `1.60.1.70959` on 2026-11-20. The real-client scenarios below are `NOT RUN`.
+Report static source analysis, offline tests, GitHub check runs and Forever client execution independently. The installed executable identified build `1.60.1.70959` on 2026-11-20. Native report export passed in Forever. The remaining scenarios need their own in-game acceptance evidence.
 
 ## Offline
 
@@ -24,5 +24,7 @@ Run the isolated Lua 5.1 suites in `tests/test_*.lua` from the repository root. 
 | Reload, retention and reset | Preserve a local checkpoint, `/reload` outside combat, compare recorder state and the native session list. Observe reset only when the tester chooses to use Blizzard's UI outside a needed run. | SavedVariables after flush, historical session count, reused IDs, reset order, cap measured or lower bound. |
 | Meter notification pressure | After a run with frequent meter updates, inspect the export or SavedVariables for the start, combat and zone transitions, encounters and a manual snapshot. | Priority records survive background churn within the configured bounds. An unlisted update ID cannot replace a retained catalogue-confirmed candidate. |
 | Interrupted run | Observe late entry, party replacement, leaving before the final boss and clean logout where feasible. | Coverage gaps and roster event evidence. Keep inaccessible fields distinct from empty lists. |
+
+On 2026-11-21 the owner opened the native probe and report, copied the complete stored report, closed it with Escape and the native close button, and reopened it at compact UI scale with a fresh manual sample. See the [archived acceptance checklist](../openspec/changes/archive/2026-11-21-fix001-native-diagnostic-export/tasks.md).
 
 Supply build, locale, installed commit, scenario, timestamps, commands, diagnostics and any Lua errors with each report. Redact personal identifiers and account paths. A missing in-game test stays `NOT RUN`; an observed mismatch is a failure or a restricted capability.
