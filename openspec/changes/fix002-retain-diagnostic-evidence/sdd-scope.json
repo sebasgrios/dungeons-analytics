@@ -1,0 +1,13 @@
+{
+  "allowed_paths": [
+    "addon/DungeonsAnalytics/Features/Diagnostics/Recorder.lua",
+    "addon/DungeonsAnalytics/Infrastructure/DiagnosticStore.lua",
+    "addon/DungeonsAnalytics/Infrastructure/DamageMeter.lua",
+    "tests/test_diagnostics.lua",
+    "tests/test_damage_meter.lua",
+    "tests/fixtures/forever_diagnostics.lua",
+    "docs/TESTING.md",
+    "docs/WOW_FOREVER_API.md",
+    "CHANGELOG.md"
+  ]
+}

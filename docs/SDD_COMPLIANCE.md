@@ -34,3 +34,9 @@ Pure documentation upkeep may use `OpenSpec-Exemption: docs-only` if it changes 
 ## Checks
 
 Inspect the latest PR head for `repository-validation`, `traceability`, `lua-compatibility` and `lua-regressions`. A GitHub conclusion of skipped is valid for the Lua checks on proposals; an absent status requires investigation. If a required context is absent, make one metadata-preserving PR body edit, then query the current head again. Report the actual results and keep owner review separate.
+
+## Links in archived changes
+
+Approve new changes with full GitHub permalinks to supporting documents outside the change. Relative references between artifacts in the same change carry over to their archived locations.
+
+Older approved changes may contain references that predate this convention. Their archived bytes preserve the historical record. The repository checker accepts an existing external target using the artifact's original active path when the moved path cannot resolve. Links to archived siblings require the sibling in the archive. To follow a legacy reference in GitHub, open the artifact at its recorded proposal commit.

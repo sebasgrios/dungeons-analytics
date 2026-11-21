@@ -11,3 +11,14 @@ npx --yes @fission-ai/openspec@1.16.0 validate --all --strict --no-interactive
 Once a reviewed change adds runtime files, run the Lua syntax, lint and formatter commands on the same paths as CI. Keep pure tests independent of the game, use fixtures for client assumptions and test each WoW mock for the documented unavailable and restricted cases. [Testing](TESTING.md) lists real-client scenarios and the result format.
 
 Reference material lives in documentation with its upstream provenance. Keep game dumps, local character records and extracted addon code out of the repository.
+
+## Package the committed diagnostic locally
+
+Use Python 3 and Git from the repository root.
+
+```sh
+python3 -m unittest discover -s tests -p 'test_package_diagnostic.py'
+python3 scripts/package_diagnostic.py --commit HEAD --output-dir dist/diagnostic
+```
+
+The packager reads committed bytes from the selected revision. A dirty checkout does not change the ZIP. The command prints the commit, interface, development version and digest.

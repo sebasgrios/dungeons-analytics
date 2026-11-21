@@ -1,0 +1,48 @@
+name: Package diagnostic
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'addon/DungeonsAnalytics/**'
+      - 'scripts/package_diagnostic.py'
+      - 'tests/test_package_diagnostic.py'
+      - '.github/workflows/package-diagnostic.yml'
+      - 'LICENSE'
+      - 'NOTICE'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package-verification:
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Test the diagnostic packager
+        run: python3 -m unittest discover -s tests -p 'test_package_diagnostic.py'
+      - name: Build and compare exact commit archives
+        id: build
+        shell: bash
+        run: |
+          preview="$RUNNER_TEMP/diagnostic-preview"
+          second="$RUNNER_TEMP/diagnostic-preview-second"
+          metadata="$RUNNER_TEMP/diagnostic-preview.md"
+          name="DungeonsAnalytics-diagnostic-${GITHUB_SHA:0:12}.zip"
+          python3 scripts/package_diagnostic.py --commit "$GITHUB_SHA" --output-dir "$preview" > "$metadata"
+          python3 scripts/package_diagnostic.py --commit "$GITHUB_SHA" --output-dir "$second" > /dev/null
+          cmp "$preview/$name" "$second/$name"
+          cat "$metadata" >> "$GITHUB_STEP_SUMMARY"
+          echo "path=$preview/$name" >> "$GITHUB_OUTPUT"
+      - name: Upload the verified installable ZIP
+        if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+        uses: actions/upload-artifact@v7
+        with:
+          path: ${{ steps.build.outputs.path }}
+          archive: false
+          if-no-files-found: error
+          retention-days: 7
