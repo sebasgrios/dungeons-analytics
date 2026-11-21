@@ -6,7 +6,7 @@ Evidence dated 2026-11-20. The local `wowf` executable reports `1.60.1.70959`. T
 
 Available means the capability has a source definition or clear implementation in this snapshot. Available with restrictions means the source documents secret or scoped behavior. Runtime limits remain pending wherever explicitly listed. No gameplay test has been run.
 
-The development diagnostic implements the probes under `/da diag`. Values labelled missing, secret, restricted, failed or unavailable are preserved as status fields. A lightweight combat-start sample inspects Current damage; outside combat the recorder samples supported categories and bounded historical detail at combat end, after relevant events or on request. The report supplies aggregate and field coverage evidence for the matrix, with outcome and timing questions remaining open until exercised in Forever.
+The development diagnostic implements the probes under `/da diag`. Values labelled missing, secret, restricted, failed or unavailable are preserved as status fields. A lightweight combat-start sample inspects Current damage; outside combat the recorder samples supported categories and bounded historical detail at combat end, after relevant events or on request. The recorder coalesces repeated meter notices and preserves priority events and checkpoints within the existing local bounds. Out-of-combat historical detail selects a candidate present in the readable session catalogue and falls back to the first listed session when no candidate matches. The report supplies aggregate and field coverage evidence for the matrix, with outcome and timing questions remaining open until exercised in Forever.
 
 | Capability | Status | Source observation and runtime check |
 | --- | --- | --- |

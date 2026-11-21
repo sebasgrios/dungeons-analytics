@@ -84,18 +84,47 @@ local function encode(value, parts)
     end
 end
 
+local function isBackground(stream, kind, reason)
+    if stream == "samples" then
+        return reason == "meter-update"
+    end
+    return kind == "DAMAGE_METER_COMBAT_SESSION_UPDATED" or kind == "DAMAGE_METER_CURRENT_SESSION_UPDATED"
+end
+
+local function oldestBackground(stream, records)
+    for index, record in ipairs(records) do
+        local kind = record:match("^(%S+)")
+        local reason = stream == "samples" and record:match('[{,]%s*reason="([^"]+)"')
+        if isBackground(stream, kind, reason) then
+            return index
+        end
+    end
+end
+
 function Store:Record(stream, kind, epoch, sequence, elapsed, data)
+    local records = self.data[stream]
+    local discard
+    local background = isBackground(stream, kind, data.reason)
+    if #records >= limits[stream] then
+        discard = oldestBackground(stream, records)
+        if not discard and background then
+            return
+        end
+        discard = discard or 1
+    end
+
     local prefix = string.format("%s epoch=%d seq=%d elapsed=%.3f ", kind, epoch, sequence, elapsed)
     local segments = { prefix }
     encode(data, segments)
     local bytes = stream == "events" and limits.eventBytes or limits.sampleBytes
     local text = table.concat(segments)
     if #text > bytes then
-        text = prefix .. '{state="record-too-large", bytes=' .. #text .. ", retainedLimit=" .. bytes .. "}"
+        local suffix = stream == "samples" and background and ', reason="meter-update"' or ""
+        local summary = '{state="record-too-large", bytes=%d, retainedLimit=%d%s}'
+        text = prefix .. string.format(summary, #text, bytes, suffix)
     end
-    local records = self.data[stream]
-    if #records >= limits[stream] then
-        table.remove(records, 1)
+    if discard then
+        table.remove(records, discard)
     end
     records[#records + 1] = text
 end
