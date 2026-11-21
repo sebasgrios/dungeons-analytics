@@ -5,6 +5,7 @@ Recorder.__index = Recorder
 addon.Recorder = Recorder
 
 local checkpoints = { 0.15, 0.6, 1.5, 3 }
+local historyLimit = 12
 local meterEvents = {
     DAMAGE_METER_COMBAT_SESSION_UPDATED = true,
     DAMAGE_METER_CURRENT_SESSION_UPDATED = true,
@@ -28,6 +29,7 @@ function Recorder.New(api, safe, context, meter, store)
         generation = 0,
         updates = 0,
         registrations = {},
+        historyIDs = {},
     }, Recorder)
 end
 
@@ -45,7 +47,7 @@ function Recorder:Invalidate()
     self.generation = self.generation + 1
     self.queued = nil
     self.updates = 0
-    self.historyID = nil
+    self.historyIDs = {}
 end
 
 function Recorder:Log(stream, kind, data)
@@ -101,7 +103,7 @@ function Recorder:Capture(reason, quick)
     if not quick then
         roster, identities = self.context:Roster()
     end
-    local report = self.meter:Read(identities, self.historyID, quick)
+    local report = self.meter:Read(identities, self.historyIDs, quick)
     report.reason = reason
     report.combat = quick and true or false
     report.roster = roster
@@ -152,17 +154,23 @@ end
 
 function Recorder:OnMeterEvent(event, metric, session)
     self.updates = math.min(self.updates + 1, 1000000)
-    local safe = self.safe
-    local _, metricType = safe:Classify(metric, "number")
-    local _, sessionID = safe:Classify(session, "number")
-    if sessionID then
-        self.historyID = sessionID
-    end
-    if self.updates == 1 or (sessionID and sessionID ~= self.lastLoggedSession) then
-        self:Log("events", event, { metric = metricType, id = sessionID })
-        if sessionID then
-            self.lastLoggedSession = sessionID
+    local _, sessionID = self.safe:Classify(session, "number")
+    local candidates = self.historyIDs
+    if sessionID and sessionID ~= candidates[1] then
+        for index, id in ipairs(candidates) do
+            if id == sessionID then
+                table.remove(candidates, index)
+                break
+            end
         end
+        if #candidates >= historyLimit then
+            table.remove(candidates)
+        end
+        table.insert(candidates, 1, sessionID)
+    end
+    if self.updates == 1 then
+        local _, metricType = self.safe:Classify(metric, "number")
+        self:Log("events", event, { metric = metricType, id = sessionID })
     end
     if not self:Locked() then
         self:Defer("meter-update", 1)
@@ -208,7 +216,6 @@ function Recorder:OnEvent(event, ...)
         return
     elseif event == "DAMAGE_METER_RESET" then
         self:Invalidate()
-        self.lastLoggedSession = nil
         self:Log("events", event, facts)
         self:NewEpoch()
         self:Defer("meter-reset", 0.35)
