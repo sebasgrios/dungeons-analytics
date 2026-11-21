@@ -1,6 +1,8 @@
 # WoW: Forever API research
 
-Source review dated 2026-11-20. The local `wowf` executable reports `1.60.1.70959`. The pinned mirror of Blizzard's extracted Forever interface identifies that build. TOC Interface `16001` is corroborated by CraftAtlas's Forever manifest and Atraeau's `70790` API export. Record the fourth return of `GetBuildInfo()` in the actual client to confirm the build and TOC pair. Blizzard's [Forever launch recap](https://worldofwarcraft.blizzard.com/en-gb/news/24303862/) establishes product context.
+The local `wowf` executable inspected on 2026-11-20 reported `1.60.1.70959`. The pinned Forever interface mirror is the `1.60.1.71037` export. Its parent identifies the `1.60.1.70959` snapshot. The generated damage meter API and enum definitions, instance API, encounter events and the native input-box Lua and XML are identical across these two source snapshots. [Local-build source snapshot](https://github.com/reckhou/WoWBlzCode/blob/0723e3af9e304e1fee7e34c45f97d666d14dfc6d/README.md) · [Pinned source export](https://github.com/reckhou/WoWBlzCode/commit/acb81d6eece0bd7f221456a634a54904ba0b043a)
+
+TOC Interface `16001` is corroborated by CraftAtlas's Forever manifest and Atraeau's `70790` API export. Record the runtime build and fourth return of `GetBuildInfo()` in the actual client to confirm the build and Interface pair. Blizzard's [Forever launch recap](https://worldofwarcraft.blizzard.com/en-gb/news/24303862/) establishes product context.
 
 ## Capability matrix
 
