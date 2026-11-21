@@ -34,6 +34,7 @@ api.combat = false
 api.sessions = {}
 assert(meter:Catalogue().state == "empty")
 api.C_DamageMeter = nil
-local absent = meter:Read(private)
+local absent = meter:Read(private, { 17 })
 assert(not absent.capabilities.namespace and absent.catalogue.state == "unavailable")
+assert(absent.byID == nil and absent.healing == nil)
 print("Damage meter tests passed")
