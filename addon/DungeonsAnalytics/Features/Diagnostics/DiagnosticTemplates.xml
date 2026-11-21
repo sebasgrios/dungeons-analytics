@@ -1,0 +1,5 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <ScrollFrame name="DungeonsAnalyticsDiagnosticScrollTemplate" inherits="InputScrollFrameTemplate" virtual="true">
+        <Size x="596" y="334"/>
+    </ScrollFrame>
+</Ui>

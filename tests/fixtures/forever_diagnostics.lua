@@ -7,20 +7,22 @@ function Fixture.Load(bootstrap)
     local file = assert(io.open(addonPath .. "DungeonsAnalytics.toc", "r"))
     for line in file:lines() do
         local path = line:gsub("%s+$", "")
-        if path:match("%.lua$") then
+        if path ~= "" and path:sub(1, 1) ~= "#" then
             manifest[#manifest + 1] = path
         end
     end
     file:close()
     for _, path in ipairs(manifest) do
-        local chunk = assert(loadfile(addonPath .. path))
-        if path == "Core/Bootstrap.lua" then
-            if bootstrap then
-                setfenv(chunk, setmetatable({ _G = bootstrap }, { __index = _G }))
+        if path:match("%.lua$") then
+            local chunk = assert(loadfile(addonPath .. path))
+            if path == "Core/Bootstrap.lua" then
+                if bootstrap then
+                    setfenv(chunk, setmetatable({ _G = bootstrap }, { __index = _G }))
+                    chunk("DungeonsAnalytics", namespace)
+                end
+            else
                 chunk("DungeonsAnalytics", namespace)
             end
-        else
-            chunk("DungeonsAnalytics", namespace)
         end
     end
     return namespace, manifest

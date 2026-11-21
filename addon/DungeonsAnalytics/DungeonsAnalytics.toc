@@ -11,6 +11,7 @@ Infrastructure/SafeValues.lua
 Infrastructure/ClientContext.lua
 Infrastructure/DamageMeter.lua
 Infrastructure/DiagnosticStore.lua
+Features/Diagnostics/DiagnosticTemplates.xml
 Features/Diagnostics/NativeProbe.lua
 Features/Diagnostics/Recorder.lua
 Features/Diagnostics/Commands.lua
