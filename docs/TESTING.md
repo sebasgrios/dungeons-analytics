@@ -4,7 +4,7 @@ Report static source analysis, offline tests, GitHub check runs and Forever clie
 
 ## Offline
 
-Run the isolated Lua 5.1 suites in `tests/test_*.lua` from the repository root. They exercise secret and restricted mock values, valid zero, restricted in-combat data, ambiguous healing targets, bounded retention, event ordering, cancellation after a reset, reload and TOC loading. The mocked native probe covers command wiring and missing templates. Client construction and rendering need the acceptance below.
+Run the isolated Lua 5.1 suites in `tests/test_*.lua` from the repository root. They exercise secret and restricted mock values, valid zero, restricted in-combat data, ambiguous healing targets, bounded retention, event ordering, cancellation after a reset, reload and TOC loading. The recorder tests exercise interleaved meter updates, catalogue-backed history and checkpoint retention when both storage windows fill. The mocked native probe covers command wiring and missing templates. Client construction and rendering need the acceptance below.
 
 ## In-game
 
@@ -22,6 +22,7 @@ Run the isolated Lua 5.1 suites in `tests/test_*.lua` from the repository root. 
 | Combat access and identity | Compare an aggregate snapshot when safe at pull, combat end, session update and a later bounded sample. Include two players of the same class and mixed combat roles. | Availability counts for source GUID, display name, class, death and amount fields. Record join counts and ambiguity. |
 | Healing and segments | Use a healer with self-heals and at least two distinct group targets. Collect source detail shapes and readable coverage. Include boss combat with adds. | Whether recipient amounts reconstruct full healing, whether recipient identity is unambiguous, session granularity and attribution limits. |
 | Reload, retention and reset | Preserve a local checkpoint, `/reload` outside combat, compare recorder state and the native session list. Observe reset only when the tester chooses to use Blizzard's UI outside a needed run. | SavedVariables after flush, historical session count, reused IDs, reset order, cap measured or lower bound. |
+| Meter notification pressure | After a run with frequent meter updates, inspect the export or SavedVariables for the start, combat and zone transitions, encounters and a manual snapshot. | Priority records survive background churn within the configured bounds. An unlisted update ID cannot replace a retained catalogue-confirmed candidate. |
 | Interrupted run | Observe late entry, party replacement, leaving before the final boss and clean logout where feasible. | Coverage gaps and roster event evidence. Keep inaccessible fields distinct from empty lists. |
 
 Supply build, locale, installed commit, scenario, timestamps, commands, diagnostics and any Lua errors with each report. Redact personal identifiers and account paths. A missing in-game test stays `NOT RUN`; an observed mismatch is a failure or a restricted capability.
