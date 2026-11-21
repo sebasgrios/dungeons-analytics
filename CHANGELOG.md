@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Validate historical documentation links in dated OpenSpec archives without rewriting approved artifacts.
+
 - Added reproducible, on-demand diagnostic ZIPs as temporary GitHub Actions artifacts.
 
 - Established the repository's OpenSpec workflow, initial verification gates, and development and testing documentation.

@@ -1,0 +1,9 @@
+{
+  "allowed_paths": [
+    "scripts/validate-repository.mjs",
+    "scripts/repository-links.mjs",
+    "tests/repository-links.test.mjs",
+    "docs/SDD_COMPLIANCE.md",
+    "CHANGELOG.md"
+  ]
+}
