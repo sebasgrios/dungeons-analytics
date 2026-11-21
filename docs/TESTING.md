@@ -11,7 +11,7 @@ Run the isolated Lua 5.1 suites in `tests/test_*.lua` from the repository root. 
 1. Install and enable the addon. Use `/da diag` for help and `/da diag start` before entering a dungeon.
 2. Use `/da diag ui` outside combat. Record the exact UI outcome and inspect at normal and compact scale. Use `/da diag snapshot` before and after the run when useful. Let the delayed samples run for at least three seconds after the final fight.
 3. To test persistence, leave capture active and use `/reload` outside combat. Check the `RELOAD` line and persisted counts in the export. A clean new login requires opting in again.
-4. Use `/da diag stop` and `/da diag export`. Save the diagnostic text locally and review it before sharing. After a clean client flush, the addon's account SavedVariables file is `DungeonsAnalyticsDiagnosticsDB.lua`.
+4. Use `/da diag stop` and `/da diag export`. Save the diagnostic text locally and review it before sharing. If the window is unavailable, log out normally to flush the account SavedVariables. Copy `_forever_/WTF/Account/<account>/SavedVariables/DungeonsAnalytics.lua` before another capture. The file contains the `DungeonsAnalyticsDiagnosticsDB` variable.
 
 | Scenario | Procedure | Evidence |
 | --- | --- | --- |
