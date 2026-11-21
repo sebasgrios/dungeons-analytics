@@ -1,6 +1,6 @@
 # Forever native UI component catalog
 
-Source review on Forever `1.60.1.70959`. Widget availability and correct behavior in addon context remain pending. Build a distinctive Dungeons Analytics report with native styling, sizing, focus behavior, navigation and controls. Use WoW-supplied atlas and fonts directly when verified. Create chart primitives with the client frame API because the analytics plot has its own data model and interactions.
+Source review on Forever `1.60.1.70959`. On 2026-11-21 the owner opened the native probe and export in Forever. The allowlisted probes reported available widgets and APIs. Visual and interaction acceptance for future report components remains pending. Build a distinctive Dungeons Analytics report with native styling, sizing, focus behavior, navigation and controls. Use WoW-supplied atlas and fonts directly when verified. Create chart primitives with the client frame API because the analytics plot has its own data model and interactions.
 
 | Source reviewed | Source-backed candidates and observations | Diagnostic or later validation |
 | --- | --- | --- |
