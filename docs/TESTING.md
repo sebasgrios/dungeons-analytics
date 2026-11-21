@@ -16,6 +16,7 @@ Run the isolated Lua 5.1 suites in `tests/test_*.lua` from the repository root. 
 | Scenario | Procedure | Evidence |
 | --- | --- | --- |
 | Build and native UI | Record `GetBuildInfo()` and realm type. Outside combat, run the allowlisted widget probes and inspect a native test frame at normal and compact scale. | Build, Interface, component outcomes, rendered screenshot, Lua errors. |
+| Native report export | Outside combat, run `/da diag export` and copy the header and the last record. Close by Escape and the native close button, then reopen after a new sample at compact UI scale. | Complete copy, released editor focus, current report contents and any Lua errors. |
 | Manual dungeon | Enable capture outside the entrance. Enter manually, fight at least two trash packs, attempt a boss and clear the dungeon. Leave and compare event ordering. | Map and difficulty availability, session IDs, encounter pairing, final-boss and zone transitions. |
 | Queued dungeon | Repeat via the dungeon finder if available. Record whether the completion event follows the last fight and whether a later meter notification changes totals. | LFG and meter event order with elapsed timestamps. |
 | Combat access and identity | Compare an aggregate snapshot when safe at pull, combat end, session update and a later bounded sample. Include two players of the same class and mixed combat roles. | Availability counts for source GUID, display name, class, death and amount fields. Record join counts and ambiguity. |

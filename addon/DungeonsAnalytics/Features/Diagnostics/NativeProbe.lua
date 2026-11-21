@@ -58,6 +58,8 @@ function NativeProbe:Inspect()
     return result
 end
 
+local reportScrollTemplate = "DungeonsAnalyticsDiagnosticScrollTemplate"
+
 local function drawWindow(self, uiTitle, text, hint, selectText)
     local api = self.api
     if not api.CreateFrame or not api.UIParent then
@@ -68,6 +70,7 @@ local function drawWindow(self, uiTitle, text, hint, selectText)
         if not ok or not window then
             return false
         end
+        window:Hide()
         window:SetSize(640, 400)
         window:SetPoint("CENTER")
         window:SetClampedToScreen(true)
@@ -83,13 +86,16 @@ local function drawWindow(self, uiTitle, text, hint, selectText)
         note:SetPoint("BOTTOMLEFT", 14, 12)
         note:SetPoint("BOTTOMRIGHT", -14, 12)
         note:SetJustifyH("LEFT")
-        local scroll = api.CreateFrame("ScrollFrame", nil, window, "InputScrollFrameTemplate")
+        local scroll = api.CreateFrame("ScrollFrame", nil, window, reportScrollTemplate)
         scroll:SetPoint("TOPLEFT", 14, -34)
         scroll:SetPoint("BOTTOMRIGHT", -30, 32)
         scroll.CharCount:Hide()
         local editor = scroll.EditBox
         editor:SetWidth(575)
         window:SetScale(math.min(1, api.UIParent:GetWidth() / 660, api.UIParent:GetHeight() / 420))
+        window:HookScript("OnHide", function()
+            editor:ClearFocus()
+        end)
         editor:SetScript("OnEscapePressed", function()
             window:Hide()
         end)
