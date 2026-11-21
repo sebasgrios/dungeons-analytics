@@ -9,3 +9,10 @@ Use the checkout that contains the diagnostic implementation and `addon/Dungeons
 5. After combat, use `/da diag export` and copy the selected text. Use `/da diag stop` when finished. SavedVariables persist on a clean reload or logout. Keep captures local until reviewed.
 
 Remove only the Dungeons Analytics addon directory to uninstall the game code. SavedVariables are stored by the client and can be retained for local evidence. Installable release ZIPs will contain one top-level `DungeonsAnalytics` directory. A GitHub source ZIP has a different layout.
+
+## Install an Actions diagnostic build
+
+1. Sign in to GitHub and open a successful main run of [Package diagnostic](https://github.com/sebasgrios/dungeons-analytics/actions/workflows/package-diagnostic.yml).
+2. Record the full source commit, TOC version and SHA-256 from the run summary. Download the ZIP from **Artifacts** within its retention period.
+3. Close the game and extract the ZIP into the Forever AddOns directory. Confirm that the manifest is at `Interface/AddOns/DungeonsAnalytics/DungeonsAnalytics.toc` and that LICENSE and NOTICE are in the same addon directory.
+4. Restart Forever and run the diagnostic commands above. Include the source commit if you submit a test report.
