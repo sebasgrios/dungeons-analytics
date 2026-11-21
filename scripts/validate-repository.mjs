@@ -1,6 +1,8 @@
 import { execFileSync } from "node:child_process";
-import { existsSync, readFileSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { readFileSync } from "node:fs";
+import { dirname } from "node:path";
+
+import { repositoryLinkExists } from "./repository-links.mjs";
 
 const files = execFileSync("git", ["ls-files", "-z"], { encoding: "utf8" }).split("\0").filter(Boolean);
 const required = [
@@ -19,7 +21,7 @@ for (const path of files.filter((name) => name.endsWith(".md"))) {
   const source = readFileSync(path, "utf8");
   for (const match of source.matchAll(/\[[^\]\n]+\]\(([^)\s]+)\)/g)) {
     const [target] = match[1].split("#");
-    if (target && !/^[a-z][a-z0-9+.-]*:/i.test(target) && !existsSync(resolve(dirname(path), target))) {
+    if (target && !/^[a-z][a-z0-9+.-]*:/i.test(target) && !repositoryLinkExists(path, target)) {
       throw new Error("Broken local Markdown link in " + path + ": " + target);
     }
   }
