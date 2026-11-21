@@ -326,8 +326,8 @@ local function historicalSession(catalogue, candidates)
             return id
         end
     end
-    local newest = catalogue.sessions[1]
-    return newest and newest.id
+    local first = catalogue.sessions[1]
+    return first and first.id
 end
 
 function Meter:Read(identities, historicalIDs, quick)
