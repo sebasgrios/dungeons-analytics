@@ -313,7 +313,24 @@ function Meter:Healing(sessionID, healers, identities)
     return report
 end
 
-function Meter:Read(identities, historicalID, quick)
+local function historicalSession(catalogue, candidates)
+    if catalogue.state ~= "readable" then
+        return nil
+    end
+    local listed = {}
+    for _, session in ipairs(catalogue.sessions) do
+        listed[session.id] = true
+    end
+    for _, id in ipairs(candidates or {}) do
+        if listed[id] then
+            return id
+        end
+    end
+    local newest = catalogue.sessions[1]
+    return newest and newest.id
+end
+
+function Meter:Read(identities, historicalIDs, quick)
     local result = { capabilities = self:Capabilities(), byType = {} }
     if result.capabilities.availability.value == false then
         return result
@@ -327,8 +344,7 @@ function Meter:Read(identities, historicalID, quick)
 
     result.durations.Overall = self:Duration("Overall")
     result.catalogue = self:Catalogue()
-    local fallback = result.catalogue.sessions[1]
-    local id = historicalID or (fallback and fallback.id)
+    local id = historicalSession(result.catalogue, historicalIDs)
     if id then
         result.byID = { id = id, metrics = {} }
     end
