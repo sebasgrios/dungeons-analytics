@@ -1,7 +1,7 @@
 ## 1. Repair report panel initialization
 
-- [ ] 1.1 Define and load the sized native scroll template before the report code.
-- [ ] 1.2 Wire the native report and release the editor focus when it closes.
+- [x] 1.1 Define and load the sized native scroll template before the report code.
+- [x] 1.2 Wire the native report and release the editor focus when it closes.
 - [ ] 1.3 Verify template dimensions, TOC load order, report copy wiring and repeat open/close in offline tests.
 
 ## 2. Verify and document
