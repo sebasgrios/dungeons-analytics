@@ -1,6 +1,6 @@
 # Testing and evidence
 
-Report static source analysis, offline tests, GitHub check runs and Forever client execution independently. The installed executable identified build `1.60.1.70959` on 2026-11-20. Native report export passed in Forever. The remaining scenarios need their own in-game acceptance evidence.
+Report static source analysis, offline tests, GitHub check runs and Forever client execution independently. The installed executable identified build `1.60.1.70959` on 2026-11-20. Subsequent Forever tests verified native report export and retention under meter activity.
 
 ## Offline
 
@@ -26,5 +26,13 @@ Run the isolated Lua 5.1 suites in `tests/test_*.lua` from the repository root. 
 | Interrupted run | Observe late entry, party replacement, leaving before the final boss and clean logout where feasible. | Coverage gaps and roster event evidence. Keep inaccessible fields distinct from empty lists. |
 
 On 2026-11-21 the owner opened the native probe and report, copied the complete stored report, closed it with Escape and the native close button, and reopened it at compact UI scale with a fresh manual sample. See the [archived acceptance checklist](../openspec/changes/archive/2026-11-21-fix001-native-diagnostic-export/tasks.md).
+
+### Queued dungeon and retention evidence
+
+On 2026-11-22 the owner ran a queued dungeon on Forever `1.60.1.71037`, Interface `16001`, locale `enUS`, with the [verified diagnostic package](https://github.com/sebasgrios/dungeons-analytics/actions/runs/44902591399) from commit `06787d3fbe4eb92e6c422c76bfab2f74eaa20705`. The export reached both caps of 200 events and 24 samples while preserving capture start and stop, instance entry, exit and re-entry, 22 pairs of combat transitions, two successful encounter pairs and post-combat checkpoints. Older lifecycle records also remained available. Isolated Lua regressions verify explicit checkpoints under background pressure. The run's export contained no manual snapshot from the queued run.
+
+The owner reported a wipe and eventual completion. `LFG_COMPLETION_REWARD` registered and no delivery appeared in the retained capture. Current damage changed at the approximately three-second checkpoint in one fight. All 21 retained out-of-combat samples selected historical IDs present in the readable portion of the catalogue. The probe read 12 entries and reported a lower bound of 13. The link from an individual fight to its historical entry remains unverified. The [retention acceptance checklist](../openspec/changes/archive/2026-11-22-fix002-retain-diagnostic-evidence/tasks.md) records the evidence for the recorder fix.
+
+Manual entry, same-class identity disambiguation, controlled recipient coverage, clean reload and tester-initiated native reset remain `NOT RUN`. The queued run verified recorder retention through the export. Recovery of that run from a fresh SavedVariables flush remains `NOT RUN`.
 
 Supply build, locale, installed commit, scenario, timestamps, commands, diagnostics and any Lua errors with each report. Redact personal identifiers and account paths. A missing in-game test stays `NOT RUN`; an observed mismatch is a failure or a restricted capability.
