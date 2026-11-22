@@ -33,6 +33,10 @@ On 2026-11-22 the owner ran a queued dungeon on Forever `1.60.1.71037`, Interfac
 
 The owner reported a wipe and eventual completion. `LFG_COMPLETION_REWARD` registered and no delivery appeared in the retained capture. Current damage changed at the approximately three-second checkpoint in one fight. All 21 retained out-of-combat samples selected historical IDs present in the readable portion of the catalogue. The probe read 12 entries and reported a lower bound of 13. The link from an individual fight to its historical entry remains unverified. The [retention acceptance checklist](../openspec/changes/archive/2026-11-22-fix002-retain-diagnostic-evidence/tasks.md) records the evidence for the recorder fix.
 
-Manual entry, same-class identity disambiguation, controlled recipient coverage, clean reload and tester-initiated native reset remain `NOT RUN`. The queued run verified recorder retention through the export. Recovery of that run from a fresh SavedVariables flush remains `NOT RUN`.
+### Remaining diagnostic acceptance
+
+Manual entry, same-class identity disambiguation, controlled recipient coverage, clean reload and tester-initiated native reset remain `NOT RUN`. Combine the manual dungeon and recipient checks when the group composition allows. Record Lua errors or blocked actions while testing the probe. After the dungeon, take a checkpoint and reload with capture active. Preserve the report before testing a native reset. Recovery of the queued capture from a fresh SavedVariables flush remains `NOT RUN`.
+
+The queued run leaves the delivery and timing of the completion signal unverified. Use the [active acceptance checklist](../openspec/changes/feat001-forever-diagnostics/tasks.md) to track these observations.
 
 Supply build, locale, installed commit, scenario, timestamps, commands, diagnostics and any Lua errors with each report. Redact personal identifiers and account paths. A missing in-game test stays `NOT RUN`; an observed mismatch is a failure or a restricted capability.

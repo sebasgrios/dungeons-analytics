@@ -21,6 +21,14 @@
 - [ ] 3.5 Update the capability matrix with measured bounds, failures and outstanding evidence.
 - [x] 3.6 Run documentation-sync and record archive readiness.
 
-Offline verification covers syntax, formatting, lint and all four Lua 5.1 suites. Archive remains blocked by
-real-client testing of build and native visuals, a manual and queued dungeon, recipient coverage, clean
-reload and reset. The procedural evidence matrix is in `docs/TESTING.md`.
+## Verification evidence
+
+Offline verification covers syntax, formatting, lint and all four Lua 5.1 suites.
+
+- **3.1** The native probe and export panel passed on 2026-11-21. The later queued capture confirmed Forever `1.60.1.71037`, Interface `16001` and locale `enUS`. Lua error and blocked-action observations still need to be recorded. [Native panel acceptance](../archive/2026-11-21-fix001-native-diagnostic-export/tasks.md)
+- **3.2** Manual entry, same-class identity disambiguation and controlled healing coverage remain `NOT RUN`. The queued samples recorded readable recipient amounts without party-slot matches.
+- **3.3** The 2026-11-22 queued run retained 22 combat pairs and two successful encounter pairs. The tester confirmed eventual completion and reported a wipe. Current damage changed at the approximately three-second checkpoint in one fight. `LFG_COMPLETION_REWARD` registered successfully, and no delivery appeared in the export. Its ordering relative to meter updates remains unverified. [Queued capture evidence](../archive/2026-11-22-fix002-retain-diagnostic-evidence/tasks.md)
+- **3.4** The export confirmed bounded retention under meter activity. Clean reload, recovery of the queued run from a fresh SavedVariables flush and tester-initiated meter reset remain `NOT RUN`.
+- **3.5** The capability matrix records the queued observations, including a catalogue lower bound of 13. It needs the results of the remaining acceptance checks before archival. [Capability matrix](../../../docs/WOW_FOREVER_API.md)
+
+The change remains active. Follow the [Forever test plan](../../../docs/TESTING.md) for manual entry, reload, reset and the remaining coverage checks.
