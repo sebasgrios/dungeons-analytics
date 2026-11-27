@@ -33,9 +33,15 @@ On 2026-11-22 the owner ran a queued dungeon on Forever `1.60.1.71037`, Interfac
 
 The owner reported a wipe and eventual completion. `LFG_COMPLETION_REWARD` registered and no delivery appeared in the retained capture. Current damage changed at the approximately three-second checkpoint in one fight. All 21 retained out-of-combat samples selected historical IDs present in the readable portion of the catalogue. The probe read 12 entries and reported a lower bound of 13. The link from an individual fight to its historical entry remains unverified. The [retention acceptance checklist](../openspec/changes/archive/2026-11-22-fix002-retain-diagnostic-evidence/tasks.md) records the evidence for the recorder fix.
 
+### Solo dungeon entry, combat and reset evidence
+
+The 2026-11-27 Ragefire Chasm test reported Forever `1.60.1.71139`, Interface `16001` and locale `esES`. The diagnostic package prepared for the test came from commit `961a6377146c6928884cd3f2d3c1dba2d074709e`. The capture began outside the instance with no party members, recorded entry to map `389` and returned to outside-instance context before capture stopped. It retained two complete combat pairs lasting 8.235 and 5.988 seconds, with all four delayed checkpoints for each pull. The local player matched a readable source row in all eight post-combat Current damage samples.
+
+`DAMAGE_METER_RESET` arrived before the recorded entry events and advanced the observation epoch. The catalogue went from 12 inspected entries with a lower bound of 13 before reset to empty at entry. Distinct entries appeared after the two pulls and reused IDs `1` and `2` from the prior epoch. Their reported durations changed across checkpoints. After exit, historical detail selected the first catalogue entry again. This run supports correlation by event timing and the appearance of a new entry within one epoch. The reset trigger and the historical selection at arbitrary checkpoints require separate evidence.
+
 ### Remaining diagnostic acceptance
 
-Manual entry, same-class identity disambiguation, controlled recipient coverage, clean reload and tester-initiated native reset remain `NOT RUN`. Combine the manual dungeon and recipient checks when the group composition allows. Record Lua errors or blocked actions while testing the probe. After the dungeon, take a checkpoint and reload with capture active. Preserve the report before testing a native reset. Recovery of the queued capture from a fresh SavedVariables flush remains `NOT RUN`.
+A full manual-entry clear with a boss, same-class identity disambiguation, controlled recipient coverage and clean reload remain `NOT RUN`. Confirm whether the observed reset was tester-initiated. Combine the manual dungeon and recipient checks when the group composition allows. Record Lua errors or blocked actions while testing the probe. After the dungeon, take a checkpoint and reload with capture active. Preserve the report before any further native reset test. Recovery of the queued capture from a fresh SavedVariables flush remains `NOT RUN`.
 
 The queued run leaves the delivery and timing of the completion signal unverified. Use the [active acceptance checklist](../openspec/changes/feat001-forever-diagnostics/tasks.md) to track these observations.
 
