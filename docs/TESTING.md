@@ -39,9 +39,15 @@ The 2026-11-27 Ragefire Chasm test reported Forever `1.60.1.71139`, Interface `1
 
 `DAMAGE_METER_RESET` arrived before the recorded entry events and advanced the observation epoch. The catalogue went from 12 inspected entries with a lower bound of 13 before reset to empty at entry. Distinct entries appeared after the two pulls and reused IDs `1` and `2` from the prior epoch. Their reported durations changed across checkpoints. After exit, historical detail selected the first catalogue entry again. This run supports correlation by event timing and the appearance of a new entry within one epoch. The reset trigger and the historical selection at arbitrary checkpoints require separate evidence.
 
+### Native UI and clean reload evidence
+
+In a follow-up outside combat on 2026-11-27, Forever `1.60.1.71139` in `esES` reported all nine widget templates available and all nine probed APIs present. The tester copied the panel results and the export retained the matching `NATIVE_UI` record. Lua error and blocked-action observations were not supplied.
+
+The export retained the manual checkpoint from before `/reload`. The `RELOAD` marker reported 200 persisted events and 24 samples and opened a new epoch. The recorder resumed capture and sampled the same two catalogue entries with unchanged reported durations. Earlier dungeon records remained available within the bounded buffers.
+
 ### Remaining diagnostic acceptance
 
-A full manual-entry clear with a boss, same-class identity disambiguation, controlled recipient coverage and clean reload remain `NOT RUN`. Confirm whether the observed reset was tester-initiated. Combine the manual dungeon and recipient checks when the group composition allows. Record Lua errors or blocked actions while testing the probe. After the dungeon, take a checkpoint and reload with capture active. Preserve the report before any further native reset test. Recovery of the queued capture from a fresh SavedVariables flush remains `NOT RUN`.
+A full manual-entry clear with a boss, same-class identity disambiguation and controlled recipient coverage remain `NOT RUN`. Confirm whether the observed reset was tester-initiated. Combine the manual dungeon and recipient checks when the group composition allows. Record Lua errors or blocked actions while testing the probe. Preserve the report before any further native reset test. A standalone SavedVariables recovery check for the original queued run remains `NOT RUN`.
 
 The queued run leaves the delivery and timing of the completion signal unverified. Use the [active acceptance checklist](../openspec/changes/feat001-forever-diagnostics/tasks.md) to track these observations.
 
