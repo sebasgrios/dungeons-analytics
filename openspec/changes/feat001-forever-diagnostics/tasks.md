@@ -17,7 +17,7 @@
 - [ ] 3.1 Record the runtime build, TOC, native component results and Lua/taint observations.
 - [ ] 3.2 Record a manual dungeon with trash, bosses, completion signals, healing and party identity coverage.
 - [ ] 3.3 Record the queued completion variant and any observed late statistics or wipe.
-- [ ] 3.4 Verify clean reload, retained sessions and a tester-initiated native reset outside a needed run.
+- [x] 3.4 Verify clean reload, retained sessions and a tester-initiated native reset outside a needed run.
 - [ ] 3.5 Update the capability matrix with measured bounds, failures and outstanding evidence.
 - [x] 3.6 Run documentation-sync and record archive readiness.
 
@@ -25,10 +25,10 @@
 
 Offline verification covers syntax, formatting, lint and all four Lua 5.1 suites.
 
-- **3.1** The native probe and export panel passed on 2026-11-21. The later queued capture confirmed Forever `1.60.1.71037`, Interface `16001` and locale `enUS`. Lua error and blocked-action observations still need to be recorded. [Native panel acceptance](../archive/2026-11-21-fix001-native-diagnostic-export/tasks.md)
-- **3.2** Manual entry, same-class identity disambiguation and controlled healing coverage remain `NOT RUN`. The queued samples recorded readable recipient amounts without party-slot matches.
+- **3.1** The native probe and export panel passed on 2026-11-21. The queued and solo captures confirmed Interface `16001` on Forever `1.60.1.71037` in `enUS` and `1.60.1.71139` in `esES`. On the later build all nine widget templates and nine APIs passed the probe. The tester copied the panel results and saw no Lua errors. A blocked-action observation is still pending. [Native UI evidence](../../../docs/TESTING.md#native-ui-and-clean-reload-evidence)
+- **3.2** The solo Ragefire Chasm capture recorded instance entry, two distinct trash combats, local-player source matches and exit. The queued capture distinguished two same-class players in out-of-combat damage observations. A full manual-entry clear with a boss, identity checks across roster replacement and controlled healing coverage remain `NOT RUN`. The queued samples recorded readable recipient amounts without party-slot matches. [Solo dungeon evidence](../../../docs/TESTING.md#solo-dungeon-entry-combat-and-reset-evidence) · [Queued roster evidence](../../../docs/TESTING.md#queued-dungeon-and-retention-evidence)
 - **3.3** The 2026-11-22 queued run retained 22 combat pairs and two successful encounter pairs. The tester confirmed eventual completion and reported a wipe. Current damage changed at the approximately three-second checkpoint in one fight. `LFG_COMPLETION_REWARD` registered successfully, and no delivery appeared in the export. Its ordering relative to meter updates remains unverified. [Queued capture evidence](../archive/2026-11-22-fix002-retain-diagnostic-evidence/tasks.md)
-- **3.4** The export confirmed bounded retention under meter activity. Clean reload, recovery of the queued run from a fresh SavedVariables flush and tester-initiated meter reset remain `NOT RUN`.
-- **3.5** The capability matrix records the queued observations, including a catalogue lower bound of 13. It needs the results of the remaining acceptance checks before archival. [Capability matrix](../../../docs/WOW_FOREVER_API.md)
+- **3.4** The queued export confirmed bounded retention under meter activity. The clean reload retained the manual checkpoint and resumed capture with the same two catalogue entries. A separate tester-initiated reset outside the instance opened a new epoch and emptied both catalogue entries before the first post-reset checkpoint. [Reload evidence](../../../docs/TESTING.md#native-ui-and-clean-reload-evidence) · [Reset evidence](../../../docs/TESTING.md#tester-initiated-meter-reset)
+- **3.5** The capability matrix records a catalogue lower bound of 13, observed ID reuse after reset, changing duration readings and catalogue continuity across the clean reload. It needs the results of the remaining acceptance checks before archival. [Capability matrix](../../../docs/WOW_FOREVER_API.md)
 
-The change remains active. Follow the [Forever test plan](../../../docs/TESTING.md) for manual entry, reload, reset and the remaining coverage checks.
+The change remains active. Follow the [Forever test plan](../../../docs/TESTING.md) for the remaining dungeon and UI coverage checks.
