@@ -1,0 +1,28 @@
+{
+  "allowed_paths": [
+    "addon/DungeonsAnalytics/DungeonsAnalytics.toc",
+    "addon/DungeonsAnalytics/Core/Bootstrap.lua",
+    "addon/DungeonsAnalytics/Core/Events.lua",
+    "addon/DungeonsAnalytics/Core/Commands.lua",
+    "addon/DungeonsAnalytics/Domain/DungeonRun.lua",
+    "addon/DungeonsAnalytics/Domain/CombatSegments.lua",
+    "addon/DungeonsAnalytics/Infrastructure/ClientContext.lua",
+    "addon/DungeonsAnalytics/Infrastructure/DamageMeter.lua",
+    "addon/DungeonsAnalytics/Features/Capture/Capture.lua",
+    "addon/DungeonsAnalytics/Features/Capture/Preview.lua",
+    "addon/DungeonsAnalytics/Features/Diagnostics/Commands.lua",
+    "addon/DungeonsAnalytics/Features/Diagnostics/NativeProbe.lua",
+    "addon/DungeonsAnalytics/Localization/Locales.lua",
+    "tests/fixtures/forever_diagnostics.lua",
+    "tests/fixtures/forever_capture.lua",
+    "tests/test_damage_meter.lua",
+    "tests/test_dungeon_run.lua",
+    "tests/test_native_capture.lua",
+    "tests/test_toctest.lua",
+    "README.md",
+    "CHANGELOG.md",
+    "docs/ARCHITECTURE.md",
+    "docs/DATA_MODEL.md",
+    "docs/TESTING.md"
+  ]
+}
