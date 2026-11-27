@@ -1,0 +1,29 @@
+{
+  "allowed_paths": [
+    "addon/DungeonsAnalytics/DungeonsAnalytics.toc",
+    "addon/DungeonsAnalytics/Core/Bootstrap.lua",
+    "addon/DungeonsAnalytics/Core/Commands.lua",
+    "addon/DungeonsAnalytics/Domain/HistoryQuery.lua",
+    "addon/DungeonsAnalytics/Domain/TimelineViewport.lua",
+    "addon/DungeonsAnalytics/Infrastructure/RunStore.lua",
+    "addon/DungeonsAnalytics/Features/Capture/Capture.lua",
+    "addon/DungeonsAnalytics/Features/History/History.lua",
+    "addon/DungeonsAnalytics/Features/Reports/Report.lua",
+    "addon/DungeonsAnalytics/Features/Reports/ReportSettings.lua",
+    "addon/DungeonsAnalytics/Features/Reports/ReportTemplates.xml",
+    "addon/DungeonsAnalytics/Features/Reports/RunSummary.lua",
+    "addon/DungeonsAnalytics/Features/Reports/Timeline.lua",
+    "addon/DungeonsAnalytics/Localization/Locales.lua",
+    "tests/fixtures/forever_history.lua",
+    "tests/fixtures/forever_report.lua",
+    "tests/test_run_history.lua",
+    "tests/test_run_report.lua",
+    "tests/test_timeline_viewport.lua",
+    "tests/test_toctest.lua",
+    "README.md",
+    "CHANGELOG.md",
+    "docs/ARCHITECTURE.md",
+    "docs/NATIVE_UI.md",
+    "docs/TESTING.md"
+  ]
+}
