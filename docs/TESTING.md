@@ -33,6 +33,8 @@ On 2026-11-22 the owner ran a queued dungeon on Forever `1.60.1.71037`, Interfac
 
 The owner reported a wipe and eventual completion. `LFG_COMPLETION_REWARD` registered and no delivery appeared in the retained capture. Current damage changed at the approximately three-second checkpoint in one fight. All 21 retained out-of-combat samples selected historical IDs present in the readable portion of the catalogue. The probe read 12 entries and reported a lower bound of 13. The link from an individual fight to its historical entry remains unverified. The [retention acceptance checklist](../openspec/changes/archive/2026-11-22-fix002-retain-diagnostic-evidence/tasks.md) records the evidence for the recorder fix.
 
+The queued roster included two druids with different roles. The Current meter associated both with separate party rows in three damage-done and seven damage-taken samples. All 21 detailed samples had readable totals for damage done, damage taken, healing done, interrupts, dispels and deaths. Matched party rows were present in 15, 21, 15, 7, 0 and 10 of those samples respectively. A readable aggregate alone provides no individual coverage. Each dispel sample reported an aggregate zero and lacked matched party rows.
+
 ### Solo dungeon entry, combat and reset evidence
 
 The 2026-11-27 Ragefire Chasm test reported Forever `1.60.1.71139`, Interface `16001` and locale `esES`. The diagnostic package prepared for the test came from commit `961a6377146c6928884cd3f2d3c1dba2d074709e`. The capture began outside the instance with no party members, recorded entry to map `389` and returned to outside-instance context before capture stopped. It retained two complete combat pairs lasting 8.235 and 5.988 seconds, with all four delayed checkpoints for each pull. The local player matched a readable source row in all eight post-combat Current damage samples.
@@ -51,7 +53,7 @@ The separate reset test on 2026-11-27 took place outside the instance and out of
 
 ### Remaining diagnostic acceptance
 
-A full manual-entry clear with a boss, same-class identity disambiguation and controlled recipient coverage remain `NOT RUN`. Combine the manual dungeon and recipient checks when the group composition allows. Record whether any actions were blocked while testing the native probe. A standalone SavedVariables recovery check for the original queued run remains `NOT RUN`.
+A full manual-entry clear with a boss, identity disambiguation across roster replacement and controlled recipient coverage remain `NOT RUN`. Combine the manual dungeon and recipient checks when the group composition allows. Record whether any actions were blocked while testing the native probe. A standalone SavedVariables recovery check for the original queued run remains `NOT RUN`.
 
 The queued run leaves the delivery and timing of the completion signal unverified. Use the [active acceptance checklist](../openspec/changes/feat001-forever-diagnostics/tasks.md) to track these observations.
 
